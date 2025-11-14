@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  copilot-api:
+    image: YOUR_USERNAME/copilot-api:latest
+    container_name: copilot-api
+    ports:
+      - "4141:4141"
+    volumes:
+      # 持久化 GitHub token 和配置
+      - ./copilot-data:/root/.local/share/copilot-api
+    environment:
+      # 可选：直接提供 GitHub Token（用于非交互式部署）
+      # - GH_TOKEN=your_github_token_here
+      
+      # 可选：自定义端口
+      # - PORT=4141
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:4141/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    # 可选：资源限制
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '1.0'
+    #       memory: 512M
+    #     reservations:
+    #       cpus: '0.5'
+    #       memory: 256M
+    
+    # 可选：日志配置
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+    # 可选：网络配置
+    # networks:
+    #   - copilot-network
+
+# 可选：自定义网络
+# networks:
+#   copilot-network:
+#     driver: bridge
