@@ -1,7 +1,7 @@
 # Docker Copilot API
 
-[![Docker Build](https://github.com/YOUR_USERNAME/docker-copilot-api/actions/workflows/docker-build.yml/badge.svg)](https://github.com/YOUR_USERNAME/docker-copilot-api/actions/workflows/docker-build.yml)
-[![Docker Image Size](https://img.shields.io/docker/image-size/YOUR_USERNAME/copilot-api/latest)](https://hub.docker.com/r/YOUR_USERNAME/copilot-api)
+[![Docker Build](https://github.com/xlight/docker-copilot-api/actions/workflows/docker-build.yml/badge.svg)](https://github.com/xlight/docker-copilot-api/actions/workflows/docker-build.yml)
+[![Docker Image Size](https://img.shields.io/docker/image-size/xlight/copilot-api/latest)](https://hub.docker.com/r/xlight/copilot-api)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 这是一个基于 GitHub Actions 自动构建的 Docker 镜像项目，封装了 [copilot-api](https://github.com/ericc-ch/copilot-api) 服务。该服务可以将 GitHub Copilot 转换为 OpenAI/Anthropic API 兼容的服务器。
@@ -28,7 +28,7 @@
 
 ```bash
 # 拉取最新镜像
-docker pull YOUR_USERNAME/copilot-api:latest
+docker pull xlight/copilot-api:latest
 
 # 创建数据持久化目录
 mkdir -p ./copilot-data
@@ -38,7 +38,7 @@ docker run -d \
   --name copilot-api \
   -p 4141:4141 \
   -v $(pwd)/copilot-data:/root/.local/share/copilot-api \
-  YOUR_USERNAME/copilot-api:latest
+  xlight/copilot-api:latest
 ```
 
 ### 使用 Docker Compose
@@ -50,7 +50,7 @@ version: "3.8"
 
 services:
   copilot-api:
-    image: YOUR_USERNAME/copilot-api:latest
+    image: xlight/copilot-api:latest
     container_name: copilot-api
     ports:
       - "4141:4141"
@@ -77,7 +77,7 @@ docker-compose up -d
 
 ```bash
 # 克隆本项目
-git clone https://github.com/YOUR_USERNAME/docker-copilot-api.git
+git clone https://github.com/xlight/docker-copilot-api.git
 cd docker-copilot-api
 
 # 构建镜像
@@ -94,7 +94,7 @@ docker run -d -p 4141:4141 -v $(pwd)/copilot-data:/root/.local/share/copilot-api
 首次运行时，容器会引导您完成 GitHub 认证流程。Token 会保存在挂载的卷中，后续重启会自动使用。
 
 ```bash
-docker run -it -p 4141:4141 -v $(pwd)/copilot-data:/root/.local/share/copilot-api YOUR_USERNAME/copilot-api:latest
+docker run -it -p 4141:4141 -v $(pwd)/copilot-data:/root/.local/share/copilot-api xlight/copilot-api:latest
 ```
 
 ### 使用环境变量（推荐用于生产环境）
@@ -104,7 +104,7 @@ docker run -it -p 4141:4141 -v $(pwd)/copilot-data:/root/.local/share/copilot-ap
 docker run -d \
   -p 4141:4141 \
   -e GH_TOKEN=your_github_token_here \
-  YOUR_USERNAME/copilot-api:latest
+  xlight/copilot-api:latest
 ```
 
 或在 Docker Compose 中：
@@ -229,16 +229,16 @@ https://ericc-ch.github.io/copilot-api?endpoint=http://localhost:4141/usage
 
 ```bash
 # 启用详细日志
-docker run -d -p 4141:4141 YOUR_USERNAME/copilot-api:latest start --verbose
+docker run -d -p 4141:4141 xlight/copilot-api:latest start --verbose
 
 # 设置账户类型为商业版
-docker run -d -p 4141:4141 YOUR_USERNAME/copilot-api:latest start --account-type business
+docker run -d -p 4141:4141 xlight/copilot-api:latest start --account-type business
 
 # 启用速率限制（30秒间隔）
-docker run -d -p 4141:4141 YOUR_USERNAME/copilot-api:latest start --rate-limit 30 --wait
+docker run -d -p 4141:4141 xlight/copilot-api:latest start --rate-limit 30 --wait
 
 # 启用手动批准模式
-docker run -d -p 4141:4141 YOUR_USERNAME/copilot-api:latest start --manual
+docker run -d -p 4141:4141 xlight/copilot-api:latest start --manual
 ```
 
 可用参数：
@@ -306,7 +306,7 @@ docker restart copilot-api
 
 修改映射端口：
 ```bash
-docker run -d -p 8080:4141 YOUR_USERNAME/copilot-api:latest
+docker run -d -p 8080:4141 xlight/copilot-api:latest
 ```
 
 ### 健康检查失败
@@ -373,11 +373,11 @@ bun run build
 ## 📞 支持
 
 - 原项目 Issues: https://github.com/ericc-ch/copilot-api/issues
-- 本项目 Issues: https://github.com/YOUR_USERNAME/docker-copilot-api/issues
+- 本项目 Issues: https://github.com/xlight/docker-copilot-api/issues
 
 ## 🔗 相关链接
 
-- [Docker Hub](https://hub.docker.com/r/YOUR_USERNAME/copilot-api)
-- [GitHub Repository](https://github.com/YOUR_USERNAME/docker-copilot-api)
+- [Docker Hub](https://hub.docker.com/r/xlight/copilot-api)
+- [GitHub Repository](https://github.com/xlight/docker-copilot-api)
 - [原始项目](https://github.com/ericc-ch/copilot-api)
 - [使用监控面板](https://ericc-ch.github.io/copilot-api)

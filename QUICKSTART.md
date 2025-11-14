@@ -8,7 +8,7 @@
 
 ```bash
 # 拉取镜像
-docker pull YOUR_USERNAME/copilot-api:latest
+docker pull xlight/copilot-api:latest
 
 # 创建数据目录
 mkdir -p copilot-data
@@ -17,7 +17,7 @@ mkdir -p copilot-data
 docker run -it \
   -p 4141:4141 \
   -v $(pwd)/copilot-data:/root/.local/share/copilot-api \
-  YOUR_USERNAME/copilot-api:latest
+  xlight/copilot-api:latest
 ```
 
 按照提示完成 GitHub 认证，然后访问 `http://localhost:4141/v1/models` 测试！
@@ -47,7 +47,7 @@ docker run -it \
   --name copilot-api \
   -p 4141:4141 \
   -v $(pwd)/copilot-data:/root/.local/share/copilot-api \
-  YOUR_USERNAME/copilot-api:latest
+  xlight/copilot-api:latest
 ```
 
 ### 3️⃣ GitHub 认证
@@ -111,7 +111,7 @@ docker run -d \
   -p 4141:4141 \
   -v $(pwd)/copilot-data:/root/.local/share/copilot-api \
   --restart unless-stopped \
-  YOUR_USERNAME/copilot-api:latest
+  xlight/copilot-api:latest
 
 # 查看日志
 docker logs -f copilot-api
@@ -128,7 +128,7 @@ version: "3.8"
 
 services:
   copilot-api:
-    image: YOUR_USERNAME/copilot-api:latest
+    image: xlight/copilot-api:latest
     container_name: copilot-api
     ports:
       - "4141:4141"
@@ -163,7 +163,7 @@ docker-compose down
 
 ```bash
 # 在本地获取 token
-docker run -it --rm YOUR_USERNAME/copilot-api:latest auth --show-token
+docker run -it --rm xlight/copilot-api:latest auth --show-token
 ```
 
 按提示完成认证，复制显示的 token。
@@ -176,7 +176,7 @@ docker run -d \
   -p 4141:4141 \
   -e GH_TOKEN=your_github_token_here \
   --restart unless-stopped \
-  YOUR_USERNAME/copilot-api:latest
+  xlight/copilot-api:latest
 ```
 
 或在 docker-compose.yml 中：
@@ -186,7 +186,7 @@ version: "3.8"
 
 services:
   copilot-api:
-    image: YOUR_USERNAME/copilot-api:latest
+    image: xlight/copilot-api:latest
     container_name: copilot-api
     ports:
       - "4141:4141"
@@ -319,7 +319,7 @@ curl http://localhost:4141/v1/models
 
 ```bash
 # 使用其他端口
-docker run -d -p 8080:4141 YOUR_USERNAME/copilot-api:latest
+docker run -d -p 8080:4141 xlight/copilot-api:latest
 
 # 或修改 docker-compose.yml 中的端口映射
 ports:

@@ -40,7 +40,7 @@ git init
 git add .
 git commit -m "Initial commit"
 git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/docker-copilot-api.git
+git remote add origin https://github.com/xlight/docker-copilot-api.git
 git push -u origin main
 ```
 
@@ -65,23 +65,23 @@ git push -u origin main
 
 ### 步骤 4：更新配置文件
 
-在 `README.md` 和 `docker-compose.yml` 中，将所有 `YOUR_USERNAME` 替换为您的实际 Docker Hub 用户名。
+在 `README.md` 和 `docker-compose.yml` 中，将所有 `xlight` 替换为您的实际 Docker Hub 用户名。
 
 **批量替换命令（macOS/Linux）：**
 
 ```bash
 # 替换 README.md
-sed -i 's/YOUR_USERNAME/your-dockerhub-username/g' README.md
+sed -i 's/xlight/your-dockerhub-username/g' README.md
 
 # 替换 docker-compose.yml
-sed -i 's/YOUR_USERNAME/your-dockerhub-username/g' docker-compose.yml
+sed -i 's/xlight/your-dockerhub-username/g' docker-compose.yml
 ```
 
 **Windows PowerShell：**
 
 ```powershell
-(Get-Content README.md) -replace 'YOUR_USERNAME', 'your-dockerhub-username' | Set-Content README.md
-(Get-Content docker-compose.yml) -replace 'YOUR_USERNAME', 'your-dockerhub-username' | Set-Content docker-compose.yml
+(Get-Content README.md) -replace 'xlight', 'your-dockerhub-username' | Set-Content README.md
+(Get-Content docker-compose.yml) -replace 'xlight', 'your-dockerhub-username' | Set-Content docker-compose.yml
 ```
 
 ### 步骤 5：触发构建
@@ -102,7 +102,7 @@ git push origin main
 
 构建成功后，访问 Docker Hub 确认镜像已推送：
 ```
-https://hub.docker.com/r/YOUR_USERNAME/copilot-api
+https://hub.docker.com/r/xlight/copilot-api
 ```
 
 ---
@@ -118,8 +118,8 @@ https://hub.docker.com/r/YOUR_USERNAME/copilot-api
 mkdir -p ./copilot-data
 
 # 拉取并运行镜像
-docker pull YOUR_USERNAME/copilot-api:latest
-docker run -it -p 4141:4141 -v $(pwd)/copilot-data:/root/.local/share/copilot-api YOUR_USERNAME/copilot-api:latest
+docker pull xlight/copilot-api:latest
+docker run -it -p 4141:4141 -v $(pwd)/copilot-data:/root/.local/share/copilot-api xlight/copilot-api:latest
 ```
 
 ### 方法 2：本地构建镜像
@@ -201,7 +201,7 @@ curl http://localhost:4141/usage
 在本地运行以获取 token：
 
 ```bash
-docker run -it --rm YOUR_USERNAME/copilot-api:latest auth --show-token
+docker run -it --rm xlight/copilot-api:latest auth --show-token
 ```
 
 按提示完成认证，然后复制显示的 token。
@@ -214,7 +214,7 @@ docker run -d \
   -p 4141:4141 \
   -e GH_TOKEN=your_github_token_here \
   --restart unless-stopped \
-  YOUR_USERNAME/copilot-api:latest
+  xlight/copilot-api:latest
 ```
 
 或使用 Docker Compose：
@@ -224,7 +224,7 @@ docker run -d \
 version: "3.8"
 services:
   copilot-api:
-    image: YOUR_USERNAME/copilot-api:latest
+    image: xlight/copilot-api:latest
     container_name: copilot-api
     ports:
       - "4141:4141"
@@ -259,7 +259,7 @@ docker-compose -f docker-compose.prod.yml up -d
 docker run -it \
   -p 4141:4141 \
   -v /data/copilot-api:/root/.local/share/copilot-api \
-  YOUR_USERNAME/copilot-api:latest
+  xlight/copilot-api:latest
 
 # 后续自动启动
 docker run -d \
@@ -267,7 +267,7 @@ docker run -d \
   -p 4141:4141 \
   -v /data/copilot-api:/root/.local/share/copilot-api \
   --restart unless-stopped \
-  YOUR_USERNAME/copilot-api:latest
+  xlight/copilot-api:latest
 ```
 
 ### 选项 3：Kubernetes 部署
@@ -310,7 +310,7 @@ spec:
     spec:
       containers:
       - name: copilot-api
-        image: YOUR_USERNAME/copilot-api:latest
+        image: xlight/copilot-api:latest
         ports:
         - containerPort: 4141
         env:
@@ -369,7 +369,7 @@ kubectl apply -f k8s-deployment.yaml
 
 ```bash
 # 更新到最新版本
-docker pull YOUR_USERNAME/copilot-api:latest
+docker pull xlight/copilot-api:latest
 docker-compose up -d
 ```
 
@@ -409,21 +409,21 @@ lsof -i :4141  # macOS/Linux
 netstat -ano | findstr :4141  # Windows
 
 # 使用不同端口
-docker run -d -p 8080:4141 YOUR_USERNAME/copilot-api:latest
+docker run -d -p 8080:4141 xlight/copilot-api:latest
 ```
 
 ### 4. 如何更新镜像？
 
 ```bash
 # 拉取最新镜像
-docker pull YOUR_USERNAME/copilot-api:latest
+docker pull xlight/copilot-api:latest
 
 # 停止并删除旧容器
 docker stop copilot-api
 docker rm copilot-api
 
 # 启动新容器
-docker run -d --name copilot-api -p 4141:4141 -v $(pwd)/copilot-data:/root/.local/share/copilot-api YOUR_USERNAME/copilot-api:latest
+docker run -d --name copilot-api -p 4141:4141 -v $(pwd)/copilot-data:/root/.local/share/copilot-api xlight/copilot-api:latest
 ```
 
 ### 5. GitHub Actions 构建失败？
@@ -437,22 +437,22 @@ docker run -d --name copilot-api -p 4141:4141 -v $(pwd)/copilot-data:/root/.loca
 ### 6. 如何启用详细日志？
 
 ```bash
-docker run -d -p 4141:4141 YOUR_USERNAME/copilot-api:latest start --verbose
+docker run -d -p 4141:4141 xlight/copilot-api:latest start --verbose
 ```
 
 ### 7. 商业版或企业版账户如何配置？
 
 ```bash
-docker run -d -p 4141:4141 YOUR_USERNAME/copilot-api:latest start --account-type business
+docker run -d -p 4141:4141 xlight/copilot-api:latest start --account-type business
 # 或
-docker run -d -p 4141:4141 YOUR_USERNAME/copilot-api:latest start --account-type enterprise
+docker run -d -p 4141:4141 xlight/copilot-api:latest start --account-type enterprise
 ```
 
 ### 8. 如何限制请求速率？
 
 ```bash
 # 设置 30 秒的请求间隔
-docker run -d -p 4141:4141 YOUR_USERNAME/copilot-api:latest start --rate-limit 30 --wait
+docker run -d -p 4141:4141 xlight/copilot-api:latest start --rate-limit 30 --wait
 ```
 
 ### 9. Token 过期怎么办？
@@ -464,7 +464,7 @@ Token 会自动刷新。如果遇到问题：
 rm -rf ./copilot-data
 
 # 重新认证
-docker run -it -p 4141:4141 -v $(pwd)/copilot-data:/root/.local/share/copilot-api YOUR_USERNAME/copilot-api:latest
+docker run -it -p 4141:4141 -v $(pwd)/copilot-data:/root/.local/share/copilot-api xlight/copilot-api:latest
 ```
 
 ### 10. 如何配置反向代理（Nginx）？
@@ -516,5 +516,5 @@ sudo certbot --nginx -d copilot-api.yourdomain.com
 
 ## 需要帮助？
 
-- 提交 Issue：https://github.com/YOUR_USERNAME/docker-copilot-api/issues
+- 提交 Issue：https://github.com/xlight/docker-copilot-api/issues
 - 原项目 Issue：https://github.com/ericc-ch/copilot-api/issues

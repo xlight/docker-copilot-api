@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   copilot-api:
-    image: YOUR_USERNAME/copilot-api:latest
+    image: xlight/copilot-api:latest
     container_name: copilot-api
     ports:
       - "4141:4141"
@@ -12,7 +12,7 @@ services:
     environment:
       # 可选：直接提供 GitHub Token（用于非交互式部署）
       # - GH_TOKEN=your_github_token_here
-      
+
       # 可选：自定义端口
       # - PORT=4141
     restart: unless-stopped
@@ -31,14 +31,14 @@ services:
     #     reservations:
     #       cpus: '0.5'
     #       memory: 256M
-    
+
     # 可选：日志配置
     logging:
       driver: "json-file"
       options:
         max-size: "10m"
         max-file: "3"
-    
+
     # 可选：网络配置
     # networks:
     #   - copilot-network
